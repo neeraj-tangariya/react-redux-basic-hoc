@@ -21,31 +21,29 @@ const Item = ({ title, addItemToCart }: any) => (
 );
 
 const Home = () => {
-  const [product, setProduct] = useState<productListItem[]>();
-  const [counter, setCounter] = useState<number>(0);
   const selector: any = useSelector(cartItemSelector);
   const dispatch = useDispatch();
+  
+  const [product, setProduct] = useState<productListItem[]>();
 
   const addItemToCart = (item: productListItem[]) => {
     dispatch(storeCartItem(item))
-    setCounter((prev) => prev + 1)
   }
 
   React.useEffect(() => {
     dispatch(getProducts());
+
     setProduct(selector?.productItem)
-  }, [counter])
+  }, [])
 
   return (
-    product && (
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          data={product}
-          renderItem={({ item }) => <Item title={item.name} addItemToCart={() => addItemToCart(item)} />}
-          keyExtractor={item => item.id}
-        />
-      </SafeAreaView>
-    )
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={product}
+        renderItem={({ item }) => <Item title={item.name} addItemToCart={() => addItemToCart(item)} />}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
   )
 }
 

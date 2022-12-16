@@ -1,7 +1,12 @@
 export type productListItem = {
-    id: number
+    id: number,
     name: string,
-    image?: string
+    url: string,
+    price: number,
+    quantity: number,
+    description: string,
+    created_at: string,
+    updated_at: string,
 }
 
 export type RootState = {

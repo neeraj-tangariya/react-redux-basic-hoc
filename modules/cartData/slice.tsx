@@ -25,7 +25,7 @@ export const slice = createSlice({
             state.cartItem.push(action.payload)
         },
         removeCartItem: (state, action) => {
-            
+            // not implemented yet
         }
     },
 });
