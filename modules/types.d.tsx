@@ -11,4 +11,5 @@ export type productListItem = {
 
 export type RootState = {
     cartData: productListItem[],
+    productData: productListItem[]
 }

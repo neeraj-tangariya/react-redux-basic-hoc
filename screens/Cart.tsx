@@ -1,7 +1,10 @@
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { useSelector, useDispatch } from "react-redux"
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from "react-redux"
 import { cartItemSelector } from '../modules/cartData/selectors';
+import WithSpinner from '../components/WithSpinner';
+
+const ViewWithSpinner = WithSpinner(SafeAreaView)
 
 const CartItem = ({ title }: any) => (
   <View style={styles.card}>
@@ -15,27 +18,26 @@ const Cart = () => {
   const selector: any = useSelector(cartItemSelector);
   const { cartItem } = selector;
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [cartItem])
+
   return (
-    cartItem.length > 0 ? (
-      <SafeAreaView style={styles.container}>
+    <ViewWithSpinner isLoading={isLoading}>
+      {cartItem.length > 0 ? (
         <FlatList
           data={cartItem}
           renderItem={({ item }) => <CartItem title={item.name} />}
           keyExtractor={item => item.id}
         />
-      </SafeAreaView>
-    ) : (
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <Text style={{
-          fontSize: 22,
-          fontWeight: '600'
-        }}>No Cart Found</Text>
-      </View>
-    )
+      ) : (
+        <View>
+          <Text style={{fontSize: 30, textAlign: 'center'}}>No Cart Item Found!</Text>
+        </View>
+      )}
+    </ViewWithSpinner>
   )
 }
 

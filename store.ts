@@ -5,10 +5,12 @@ import {
 } from '@reduxjs/toolkit'
 import { RootState } from './modules/types.d';
 import { cartData } from './modules/cartData/slice';
+import { productData } from './modules/productData/slice';
 
 export const store = configureStore({
     reducer: {
-        cartData
+        cartData,
+        productData
     }
 })
 

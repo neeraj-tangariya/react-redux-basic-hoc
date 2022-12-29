@@ -1,10 +1,13 @@
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux"
-import { cartItemSelector } from '../modules/cartData/selectors';
-import { getProducts } from '../modules/cartData/getProductList';
 import { productListItem } from '../modules/types.d';
 import { storeCartItem } from '../modules/cartData/slice';
+import WithSpinner from '../components/WithSpinner';
+import { getProductList } from '../modules/productData/getProductList';
+import { productItemSelector } from '../modules/productData/selectors';
+
+const ViewWithSpinner = WithSpinner(SafeAreaView)
 
 const Item = ({ title, addItemToCart }: any) => (
   <View style={styles.card}>
@@ -21,29 +24,28 @@ const Item = ({ title, addItemToCart }: any) => (
 );
 
 const Home = () => {
-  const selector: any = useSelector(cartItemSelector);
+  const selector: any = useSelector(productItemSelector);
   const dispatch = useDispatch();
-  
-  const [product, setProduct] = useState<productListItem[]>();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const addItemToCart = (item: productListItem[]) => {
     dispatch(storeCartItem(item))
   }
 
   React.useEffect(() => {
-    dispatch(getProducts());
-
-    setProduct(selector?.productItem)
+    dispatch(getProductList());
+    setIsLoading(false)
   }, [])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ViewWithSpinner isLoading={isLoading}>
       <FlatList
-        data={product}
+        data={selector?.productItem}
         renderItem={({ item }) => <Item title={item.name} addItemToCart={() => addItemToCart(item)} />}
         keyExtractor={item => item.id}
       />
-    </SafeAreaView>
+    </ViewWithSpinner>
   )
 }
 
