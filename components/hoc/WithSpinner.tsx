@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import React from 'react'
-import LoadingIndicator from './LoadingIndicator'
+import LoadingIndicator from '../LoadingIndicator'
 
 type SpinnerType = {
     isLoading: boolean,

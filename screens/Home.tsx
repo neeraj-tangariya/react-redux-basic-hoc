@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux"
 import { productListItem } from '../modules/types.d';
 import { storeCartItem } from '../modules/cartData/slice';
-import WithSpinner from '../components/WithSpinner';
+import WithSpinner from '../components/hoc/WithSpinner';
 import { getProductList } from '../modules/productData/getProductList';
 import { productItemSelector } from '../modules/productData/selectors';
 

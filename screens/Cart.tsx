@@ -2,7 +2,7 @@ import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react
 import React, { useEffect, useState } from 'react'
 import { useSelector } from "react-redux"
 import { cartItemSelector } from '../modules/cartData/selectors';
-import WithSpinner from '../components/WithSpinner';
+import WithSpinner from '../components/hoc/WithSpinner';
 
 const ViewWithSpinner = WithSpinner(SafeAreaView)
 
