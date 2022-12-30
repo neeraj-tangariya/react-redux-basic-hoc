@@ -20,7 +20,9 @@ export const slice = createSlice({
             state.cartItem.push(action.payload)
         },
         removeCartItem: (state, action) => {
-            // not implemented yet
+            state.cartItem.filter(item => {
+                return item.id !== action.payload
+            })
         }
     },
 });
@@ -28,6 +30,7 @@ export const slice = createSlice({
 export const {
     getCartItem,
     storeCartItem,
+    removeCartItem
 } = slice.actions;
 
 
